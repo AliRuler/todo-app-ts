@@ -37,7 +37,7 @@ const TodoTable = (): JSX.Element => {
     return (
         <>
             {todos.map(todo => (
-                <Grid container alignItems={'center'} my={1} bgcolor={todo.theme} p={2} borderRadius={2}
+                <Grid container alignItems={'center'} my={1} bgcolor={todo.theme} p={2} borderRadius={3}
                       color={'common.white'} justifyContent={'space-between'}>
                     <Grid container item xs={6}>
                         <Grid display={'flex'} alignItems={'center'} item>

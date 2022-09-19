@@ -2,6 +2,7 @@ import Grid from "@mui/material/Grid";
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 
 const AddTodoBtn = (): JSX.Element => {
     return (
@@ -10,8 +11,9 @@ const AddTodoBtn = (): JSX.Element => {
                 <Button
                     sx={{
                         bgcolor: 'primary.dark',
-                        width: '200px',
+                        width: '250px',
                         color: 'common.white',
+                        borderRadius:2,
                         '&:hover': {
                             bgcolor: 'common.white',
                             color: 'primary.dark',
@@ -19,7 +21,8 @@ const AddTodoBtn = (): JSX.Element => {
                             borderColor: 'primary.dark'
                         }
                     }}>
-                    <Typography sx={{cursor: 'pointer'}}>
+                    <ControlPointRoundedIcon/>
+                    <Typography ml={2} sx={{cursor: 'pointer'}}>
                         اضافه کردن تسک جدید
                     </Typography>
                 </Button>

@@ -6,13 +6,14 @@ interface TodoDetailsBtnProps {
     title: string,
     todo: Todo,
     icon: any
-    // action: () =>
+    action: (id: number) => void
 }
 
 
-const TodoDetailsBtn = ({title, todo, icon}: TodoDetailsBtnProps): JSX.Element => {
+const TodoDetailsBtn = ({title, todo, icon, action}: TodoDetailsBtnProps): JSX.Element => {
     return (
         <Button variant={'contained'}
+                onClick={() => action(todo.id)}
                 sx={{
                     bgcolor: 'common.white',
                     color: todo.theme,

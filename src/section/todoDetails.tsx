@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import {useEffect, useState} from "react";
 import Todo from "../models/todo";
-import {useSelector} from "react-redux";
-import {Link, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRounded';
@@ -12,10 +12,12 @@ import FlagRoundedIcon from '@mui/icons-material/FlagRounded';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
 import TodoDetailsBtn from "../components/TodoDetailsBtn";
+import {bookmarkTodo, checkTodo, deleteTodo, updateTodo} from "../redux/reducer/todo.reducer";
 
 const TodoDetails = () => {
     const database: Todo[] = useSelector((db: { todo: [] }) => db.todo)
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const params = useParams()
 
     const [todo, setTodo] = useState<Todo>({
@@ -26,6 +28,24 @@ const TodoDetails = () => {
         status: false,
         theme: ''
     })
+
+    const handleDelete = (id: number) => {
+        dispatch(deleteTodo(id))
+        navigate('/')
+    }
+
+    const handleCheck = (id: number) => {
+        dispatch(checkTodo(id))
+    }
+
+    const handleBookmark = (id: number) => {
+        dispatch(bookmarkTodo(id))
+    }
+
+    const handleUpdate = (id: number) => {
+        console.log('soon...')
+    }
+
 
     useEffect(() => {
         setTodo(database.filter(todo => todo.id === Number(params.todoId))[0])
@@ -59,14 +79,14 @@ const TodoDetails = () => {
                         </Typography>
                     </Grid>
                     <Grid container justifyContent={'space-between'} item xs={12} my={1}>
-                        <TodoDetailsBtn title={'اولویت'} todo={todo}
+                        <TodoDetailsBtn title={'اولویت'} todo={todo} action={handleBookmark}
                                         icon={todo.bookmark
                                             ?
                                             <FlagRoundedIcon/>
                                             :
                                             <FlagOutlinedIcon/>}
                         />
-                        <TodoDetailsBtn title={'وضعیت'} todo={todo}
+                        <TodoDetailsBtn title={'وضعیت'} todo={todo} action={handleCheck}
                                         icon={todo.status
                                             ?
                                             <CheckCircleOutlineRoundedIcon/>
@@ -75,8 +95,10 @@ const TodoDetails = () => {
                         />
                     </Grid>
                     <Grid container justifyContent={'space-between'} item xs={12} my={1}>
-                        <TodoDetailsBtn title={'حذف'} todo={todo} icon={<DeleteOutlineRoundedIcon/>}/>
-                        <TodoDetailsBtn title={'ویرایش'} todo={todo} icon={<ModeEditOutlineRoundedIcon/>}/>
+                        <TodoDetailsBtn title={'حذف'} todo={todo} icon={<DeleteOutlineRoundedIcon/>}
+                                        action={handleDelete}/>
+                        <TodoDetailsBtn title={'ویرایش'} todo={todo} icon={<ModeEditOutlineRoundedIcon/>}
+                                        action={handleUpdate}/>
                     </Grid>
                 </Grid>
             </Grid>
