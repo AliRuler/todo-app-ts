@@ -12,7 +12,11 @@ import {useEffect, useState} from "react";
 import {bookmarkTodo, checkTodo, deleteTodo} from "../redux/reducer/todo.reducer";
 import {Link} from "react-router-dom";
 
-const TodoTable = (): JSX.Element => {
+interface TodoTableProps {
+    filter: { done: boolean, bookmark: boolean, all: boolean },
+}
+
+const TodoTable = ({filter}: TodoTableProps): JSX.Element => {
     const database = useSelector((db: { todo: [] }) => db.todo)
     const [todos, setTodos] = useState<Todo[]>(database)
 
@@ -36,14 +40,14 @@ const TodoTable = (): JSX.Element => {
 
     return (
         <>
-            {todos.map(todo => (
+            {todos.filter(todo => todo.status === filter.done && todo.bookmark === filter.bookmark || filter.all).map(todo => (
                 <Grid container alignItems={'center'} my={1} bgcolor={todo.theme} p={2} borderRadius={3}
                       color={'common.white'} justifyContent={'space-between'}>
                     <Grid container item xs={6}>
                         <Grid display={'flex'} alignItems={'center'} item>
                             <Link to={`/todos/${todo.id}`}>
                                 <Grid display={'flex'} alignItems={'center'}>
-                                    <InfoOutlinedIcon sx={{color:'common.white'}}/>
+                                    <InfoOutlinedIcon sx={{color: 'common.white'}}/>
                                 </Grid>
                             </Link>
                         </Grid>
@@ -61,7 +65,7 @@ const TodoTable = (): JSX.Element => {
                     </Grid>
                     <Grid container item xs={6} justifyContent={'flex-end'} alignItems={'center'}
                           sx={{cursor: 'pointer'}}>
-                        <Typography mr={1}>
+                        <Typography mr={1} sx={{textDecoration: todo.status ? 'line-through' : 'unset'}}>
                             {todo.title}
                         </Typography>
                         {todo.status
