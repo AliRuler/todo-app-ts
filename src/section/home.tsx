@@ -5,8 +5,8 @@ import FilterDialog from "../components/FilterDialog";
 import {useState} from "react";
 
 const Home = (): JSX.Element => {
-    const [open, setOpen] = useState(true)
-    const [filter, setFilter] = useState({done: true, bookmark: false, all: false});
+    const [open, setOpen] = useState(false)
+    const [filter, setFilter] = useState({done: false, bookmark: false, all: true});
 
     return (
         <Grid container justifyContent={'center'}>
