@@ -13,7 +13,6 @@ import Todo from "../models/todo";
 
 const TodoForm = (): JSX.Element => {
     const database: Todo[] = useSelector((db: { todo: [] }) => db.todo)
-    const [state, setState] = useState('addTodo')
     const location = useLocation()
     const params = useParams()
     const [form, setForm] = useState<Todo>({
