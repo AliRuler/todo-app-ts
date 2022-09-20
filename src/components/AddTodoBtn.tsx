@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
@@ -12,7 +12,7 @@ interface AddTodoBtnProps {
 const AddTodoBtn = ({setOpen}: AddTodoBtnProps): JSX.Element => {
     return (
         <Grid display={'flex'} justifyContent={'space-between'} item xs={12} my={1} height={'50px'}>
-            <Link to={'/todoform'}>
+            <Link to={'/todoform/addTodo'}>
                 <Button
                     sx={{
                         bgcolor: 'primary.dark',

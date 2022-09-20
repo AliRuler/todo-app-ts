@@ -21,8 +21,9 @@ export const TodoReducer = createSlice({
                 state.splice(p, 1);
             }
         },
-        updateTodo: (state, action: PayloadAction<number>) => {
-
+        updateTodo: (state, action: PayloadAction<Todo>) => {
+            const p = state.findIndex((item) => item.id === action.payload.id);
+            state[p] = action.payload
         },
         checkTodo: (state, action: PayloadAction<number>) => {
             const p = state.findIndex((item) => item.id === action.payload);

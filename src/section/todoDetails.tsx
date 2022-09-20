@@ -43,7 +43,7 @@ const TodoDetails = () => {
     }
 
     const handleUpdate = (id: number) => {
-        console.log('soon...')
+        navigate(`/todoform/update?${todo.id}`)
     }
 
 

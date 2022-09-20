@@ -13,7 +13,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
-                    <Route path={'/todoForm'} element={<TodoForm/>}/>
+                    <Route path={'/todoForm/:state'} element={<TodoForm/>}/>
                     <Route path={'/todos/:todoId'} element={<TodoDetails/>}/>
                 </Routes>
             </BrowserRouter>

@@ -4,16 +4,20 @@ import TextField from "@mui/material/TextField";
 import {ColorData} from "../data/colorData";
 import Button from "@mui/material/Button";
 import DoneAllRoundedIcon from '@mui/icons-material/DoneAllRounded';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {addTodo} from "../redux/reducer/todo.reducer";
+import {addTodo, updateTodo} from "../redux/reducer/todo.reducer";
 import Todo from "../models/todo";
 
 const TodoForm = (): JSX.Element => {
+    const database: Todo[] = useSelector((db: { todo: [] }) => db.todo)
+    const [state, setState] = useState('addTodo')
+    const location = useLocation()
+    const params = useParams()
     const [form, setForm] = useState<Todo>({
-        id: Math.floor(Math.random()*1000),
+        id: Math.floor(Math.random() * 1000),
         title: '',
         bookmark: false,
         description: '',
@@ -34,9 +38,21 @@ const TodoForm = (): JSX.Element => {
     }
 
     const handleSubmit = () => {
-        dispatch(addTodo(form))
-        navigate('/')
+        if (params.state === 'addTodo') {
+            dispatch(addTodo(form))
+            navigate('/')
+        } else {
+            dispatch(updateTodo(form))
+            navigate(`/todos/${form.id}`)
+        }
+
     }
+
+    useEffect(() => {
+        if (params.state === 'update'){
+            setForm(database.filter(todo => todo.id === Number(location.search.slice(1,location.search.length)))[0])
+        }
+    }, [])
 
     return (
         <Grid container justifyContent={'center'} alignItems={'center'} dir={'rtl'}>
@@ -81,7 +97,7 @@ const TodoForm = (): JSX.Element => {
                             maxWidth: '260px',
                             borderRadius: '12px'
                         }}
-                        disabled={!(form.title && form.theme && form.description)}>
+                                disabled={!(form.title && form.theme && form.description)}>
                             <Typography>
                                 ثبت
                             </Typography>
