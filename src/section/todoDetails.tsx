@@ -15,7 +15,7 @@ import TodoDetailsBtn from "../components/TodoDetailsBtn";
 import {bookmarkTodo, checkTodo, deleteTodo, updateTodo} from "../redux/reducer/todo.reducer";
 
 const TodoDetails = () => {
-    const database: Todo[] = useSelector((db: { todo: [] }) => db.todo)
+    const database = useSelector((db: { todo: {todo: Todo[]} }) => (db.todo.todo))
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()

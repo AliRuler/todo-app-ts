@@ -12,7 +12,7 @@ import {addTodo, updateTodo} from "../redux/reducer/todo.reducer";
 import Todo from "../models/todo";
 
 const TodoForm = (): JSX.Element => {
-    const database: Todo[] = useSelector((db: { todo: [] }) => db.todo)
+    const database = useSelector((db: { todo: {todo: Todo[]} }) => (db.todo.todo))
     const location = useLocation()
     const params = useParams()
     const [form, setForm] = useState<Todo>({

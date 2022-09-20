@@ -17,7 +17,7 @@ interface TodoTableProps {
 }
 
 const TodoTable = ({filter}: TodoTableProps): JSX.Element => {
-    const database = useSelector((db: { todo: [] }) => db.todo)
+    const database = useSelector((db: { todo: {todo: Todo[]} }) => (db.todo.todo))
     const [todos, setTodos] = useState<Todo[]>(database)
 
     const dispatch = useDispatch()
